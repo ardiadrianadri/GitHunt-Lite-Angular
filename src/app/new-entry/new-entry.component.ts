@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Angular2Apollo } from 'angular2-apollo';
 
 import gql from 'graphql-tag';
@@ -13,7 +14,8 @@ export class NewEntryComponent {
   repoFullName: string;
 
   constructor(
-    private apollo: Angular2Apollo
+    private apollo: Angular2Apollo,
+    private router: Router
   ) { }
 
   submit() {
@@ -37,7 +39,7 @@ export class NewEntryComponent {
         repoFullName: this.repoFullName,
       },
     }).then(() => {
-      // success
+      this.router.navigate(['/']);
     }).catch((error: Error) => {
       this.error = error.message;
     });
