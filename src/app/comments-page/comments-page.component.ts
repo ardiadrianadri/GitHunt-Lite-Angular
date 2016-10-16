@@ -38,7 +38,10 @@ export class CommentsPageComponent implements OnInit, OnDestroy {
       }
 
       this.commentsPageSub = this.apollo.watchQuery({
-        query: commentsPageQuery
+        query: commentsPageQuery,
+        variables: {
+          repoName: this.repoFullName
+        }
       }).subscribe(({data}) => {
         this.currentUser = data.currentUser;
         this.entry = data.entry;
