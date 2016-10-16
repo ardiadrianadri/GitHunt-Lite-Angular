@@ -30,7 +30,7 @@ export class NewEntryComponent {
           submitRepository(repoFullName: $repoFullName) {
             createdAt
           }
-          
+
         }
       `,
       variables: {
@@ -38,8 +38,8 @@ export class NewEntryComponent {
       },
     }).then(() => {
       // success
-    }).catch((error) => {
-      // error
+    }).catch((error: Error) => {
+      this.error = error.message;
     });
   }
 
