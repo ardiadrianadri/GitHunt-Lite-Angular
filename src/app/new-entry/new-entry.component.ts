@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Angular2Apollo } from 'angular2-apollo';
 
 @Component({
   selector: 'app-new-entry',
@@ -9,7 +10,9 @@ export class NewEntryComponent {
   error: string;
   repoFullName: string;
 
-  constructor() { }
+  constructor(
+    private apollo: Angular2Apollo
+  ) { }
 
   submit() {
     if (!this.repoFullName) {
@@ -17,6 +20,12 @@ export class NewEntryComponent {
     }
 
     this.error = null;
+
+    this.apollo.mutate({}).then(() => {
+      // success
+    }).catch((error) => {
+      // error
+    });
   }
 
 }
