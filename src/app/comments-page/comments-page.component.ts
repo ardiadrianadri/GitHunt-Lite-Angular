@@ -3,7 +3,7 @@ import { Angular2Apollo } from 'angular2-apollo';
 import { Subscription } from 'rxjs/Subscription';
 
 import { OnSubmitEvent } from '../new-comment/new-comment.models';
-import { commentsPageQuery } from './comments-page.models';
+import { commentsPageQuery, submitCommentMutation } from './comments-page.models';
 
 @Component({
   selector: 'app-comments-page',
@@ -12,6 +12,7 @@ import { commentsPageQuery } from './comments-page.models';
 })
 export class CommentsPageComponent implements OnInit, OnDestroy {
   currentUser: Object;
+  repoFullName: string;
   commentsPageSub: Subscription;
 
   constructor(
@@ -27,7 +28,17 @@ export class CommentsPageComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(event: OnSubmitEvent) {
-    // action
+    if (!this.currentUser) {
+      return;
+    }
+
+    this.apollo.mutate({
+      mutation: submitCommentMutation,
+      variables: {
+        repoFullName: this.repoFullName,
+        commentContent: event.comment
+      }
+    });
   }
 
   ngOnDestroy() {
